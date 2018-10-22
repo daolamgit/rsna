@@ -90,7 +90,7 @@ class DetectorConfig(Config):
     DETECTION_MAX_INSTANCES = 3
     DETECTION_MIN_CONFIDENCE = 0.4
     DETECTION_NMS_THRESHOLD = 0.1
-    STEPS_PER_EPOCH = 1024
+    STEPS_PER_EPOCH = 200
 
 config = DetectorConfig()
 config.display()
@@ -254,7 +254,7 @@ warnings.filterwarnings("ignore")
 ## train heads with higher lr to speedup the learning
 model.train(dataset_train, dataset_val,
             learning_rate=LEARNING_RATE*2,
-            epochs=1,
+            epochs=5,
             layers='heads',
             augmentation=None)  ## no need to augment yet
 
@@ -263,7 +263,7 @@ history = model.keras_model.history.history
 
 model.train(dataset_train, dataset_val,
             learning_rate=LEARNING_RATE,
-            epochs=1,
+            epochs=10,
             layers='all',
             augmentation=augmentation)
 
@@ -272,7 +272,7 @@ for k in new_history: history[k] = history[k] + new_history[k]
 
 model.train(dataset_train, dataset_val,
             learning_rate=LEARNING_RATE/5,
-            epochs=1,
+            epochs=20,
             layers='all',
             augmentation=augmentation)
 
