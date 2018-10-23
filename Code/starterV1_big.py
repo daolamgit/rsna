@@ -76,11 +76,8 @@ class DetectorConfig(Config):
     # DETECTION_NMS_THRESHOLD = 0.1
     # STEPS_PER_EPOCH = 1024
 
-<<<<<<< HEAD:Code/starterV1.py
-    IMAGES_PER_GPU = 16
-=======
-    IMAGES_PER_GPU = 2
->>>>>>> 21329b9216e188bdd8873baf05739b10813173e5:Code/starterV1_big.py
+
+    IMAGES_PER_GPU = 4
 
     BACKBONE = 'resnet50'
 
