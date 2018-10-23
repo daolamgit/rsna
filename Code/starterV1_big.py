@@ -76,22 +76,22 @@ class DetectorConfig(Config):
     # DETECTION_NMS_THRESHOLD = 0.1
     # STEPS_PER_EPOCH = 1024
 
-    IMAGES_PER_GPU = 4
+    IMAGES_PER_GPU = 2
 
-    BACKBONE = 'resnet101'
+    BACKBONE = 'resnet50'
 
     NUM_CLASSES = 1 + 1  # background + 1 pneumonia classes
 
-    IMAGE_MIN_DIM = 256
-    IMAGE_MAX_DIM = 256
+    IMAGE_MIN_DIM = 1024
+    IMAGE_MAX_DIM = 1024
     RPN_ANCHOR_SCALES = (32, 64, 128, 256)
     TRAIN_ROIS_PER_IMAGE = 32
     MAX_GT_INSTANCES = 3
     DETECTION_MAX_INSTANCES = 3
-    DETECTION_MIN_CONFIDENCE = 0.7
+    DETECTION_MIN_CONFIDENCE = 0.6
     DETECTION_NMS_THRESHOLD = 0.1
 
-    STEPS_PER_EPOCH = 200
+    STEPS_PER_EPOCH = 25000//IMAGES_PER_GPU//10
 
 config = DetectorConfig()
 config.display()
@@ -161,7 +161,8 @@ ORIG_SIZE = 1024
 image_fps_list = list(image_fps)
 random.seed(68)
 random.shuffle(image_fps_list)
-val_size = 1500
+val_size = len( image_fps_list)//10
+
 image_fps_val = image_fps_list[:val_size]
 image_fps_train = image_fps_list[val_size:]
 
@@ -215,7 +216,7 @@ model.load_weights(COCO_WEIGHTS_PATH, by_name=True, exclude=[
     "mrcnn_class_logits", "mrcnn_bbox_fc",
     "mrcnn_bbox", "mrcnn_mask"])
 
-LEARNING_RATE = 0.005
+LEARNING_RATE = 0.0005
 
 # Train Mask-RCNN Model
 import warnings
