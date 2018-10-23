@@ -76,9 +76,9 @@ class DetectorConfig(Config):
     # DETECTION_NMS_THRESHOLD = 0.1
     # STEPS_PER_EPOCH = 1024
 
-    IMAGES_PER_GPU = 4
+    IMAGES_PER_GPU = 16
 
-    BACKBONE = 'resnet101'
+    BACKBONE = 'resnet50'
 
     NUM_CLASSES = 1 + 1  # background + 1 pneumonia classes
 
