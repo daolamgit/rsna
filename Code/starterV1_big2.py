@@ -14,6 +14,11 @@ import glob
 from sklearn.model_selection import KFold
 
 
+os.environ["CUDA_VISIBLE_DEVICES"]="1"
+from keras import backend as K
+import tensorflow as tf
+config = tf.ConfigProto()
+config.gpu_options.allow_growth=True
 
 DATA_DIR = '../Data/input'
 
@@ -55,7 +60,7 @@ class DetectorConfig(Config):
     """
 
     # Give the configuration a recognizable name
-    NAME = 'pneumonia'
+    NAME = 'pneumonia1'
 
     # Train on 1 GPU and 8 images per GPU. We can put multiple images on each
     # GPU because the images are small. Batch size is 8 (GPUs * images/GPU).
@@ -77,7 +82,7 @@ class DetectorConfig(Config):
     # STEPS_PER_EPOCH = 1024
 
 
-    IMAGES_PER_GPU = 4
+    IMAGES_PER_GPU = 2
 
     BACKBONE = 'resnet50'
 
@@ -160,7 +165,8 @@ image_fps, image_annotations = parse_dataset(train_dicom_dir, anns=anns)
 ORIG_SIZE = 1024
 
 image_fps_list = list(image_fps)
-random.seed(68)
+# image_fps_list = image_fps_list[:20] # fix this  
+random.seed(61)
 random.shuffle(image_fps_list)
 val_size = len( image_fps_list)//10
 
