@@ -214,9 +214,6 @@ model.load_weights(COCO_WEIGHTS_PATH, by_name=True, exclude=[
 
 LEARNING_RATE = 0.0005
 
-# Train Mask-RCNN Model
-import warnings
-warnings.filterwarnings("ignore")
 
 # %%time
 ## train heads with higher lr to speedup the learning
