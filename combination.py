@@ -1,4 +1,23 @@
+def comb_nonorder_bottomup_yield(a,k):
+    '''
+    combinations that has no order generate bottom up and use yield
+    '''
+    def bt(currentIndex=0, curr=[]):
+        if len(curr) == k: #one of the result
+            # print (curr)
+            yield curr
+        else:
+            for i in range(currentIndex, len(a)): # range(current Index so that they are not duplicate in order
+                curr.append(a[i]) #build up the result
+                # print( curr)
+                yield from bt(i+1, curr) #when use yield, recursive make call yield from to call or else it will not work
+                curr.pop() # back track
+    return bt( )
+
 def comb_nonorder_bottomup(a,k):
+    '''
+    bottom up recursive for normal combination generation
+    '''
     res = []
     def bt(currentIndex=0, curr=[]):
         if len(curr) == k: #one of the result
@@ -15,6 +34,9 @@ def comb_nonorder_bottomup(a,k):
     return res
 
 def comb_order_bottomup( a, k):
+        '''
+    bottom up recursive for normal combination generation wither ordering 
+    '''
     res = []
     def bt( currentIndex = 0, currCombine = []):
         # print( currentIndex)
@@ -33,6 +55,9 @@ def comb_order_bottomup( a, k):
     return res
 
 def comb_order_rep_bottomup( a, k):
+    '''
+    bottom up recursive for normal combination generation with ordering and repetition
+    '''
     res = []
     def bt( currentIndex = 0, currCombine = []):
         # print( currentIndex)
@@ -48,6 +73,24 @@ def comb_order_rep_bottomup( a, k):
     bt()
     return res
 
+def comb_nonorder_topdown_yield(A,K):
+    '''
+    Questions: how to stop at k if we start base case at 0????
+    A: start from
+    '''
+    def bt( a, k):
+        if k==0: #first element in queue/list
+            yield []
+        else: #without else, it would over flow as the 2nd call of yield will call for loop next line
+            for currentIndex in range(k-1, len( a)): #just use from k-1 onward to swap in
+                # cura = a[:currentIndex] + a[currentIndex+1:]
+                cura = a[:currentIndex] # only use cura from 0 to but not current index to build the prev sol
+                # cura = a
+                for p in bt(cura, k-1):
+                    # print(p)
+                    yield p + [a[currentIndex]]
+
+    return bt(A, K)
 
 def comb_nonorder_topdown(A,K):
     '''
